@@ -1,36 +1,43 @@
-let colors  = ['red','green','pink','yellow','black'];
-let user ={
-  name :"Ayush",
-  isloggedin:true
-}
-function printName(){
-  let warning ="Dont click me"; 
-  return warning;
-}
-function App() {
-  return (
-    <>
-    <div>Hello this is Aayush</div>
-    <div>We are building forentend using react</div>
-    <p>{5+6}</p>
-    <p> 8 + 9 </p>
-    <ul>
-      {
-        colors.map((c)=>{
-          return <li>{c}</li>
-        })
-      }
-    </ul>
-    <p>
-      {user.isloggedin ? `${user.name} is Online`: `${user.name} is offline`}
-    </p>
-    <button className="PrintWarning" onClick={printName}>Dont click me </button>
-    <img src="" alt="" />
+import Footer2, {Footer} from "./components/Footer";// named  import
+import Navbar from "./components/Navbar";// default import
+import { Product } from "./components/Product";
 
-    </>
-    
-  );
+const user ={
+  name:"Ayush",
+  isActive:true,
+
 }
-console.log(App());
+const Products=[
+  {
+    title:"Nike ka juta",
+    price:400
+  },
+  {
+    title:"Campus ka shoes",
+    price:200
+  },
+  {
+    title:"Titan ki watch",
+    price:450
+  }
+]
+
+
+function App(){
+  return (
+    <div>
+    <Navbar/>
+    <div>
+      {Products.map(({title , price} ,i)=>{
+        return <Product key={i} title={title} price={price}/>
+      })}
+    </div>
+
+    <h1>This is Aayush here</h1>
+    <Footer/>
+    <Footer2/>
+    </div>
+  )
+}
 
 export default App
