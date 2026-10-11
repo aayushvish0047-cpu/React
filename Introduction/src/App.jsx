@@ -1,11 +1,10 @@
 import Footer2, {Footer} from "./components/Footer";// named  import
 import Navbar from "./components/Navbar";// default import
-import { Product } from "./components/Product";
+import { Products1 } from "./components/Products1";
 
 const user ={
-  name:"Ayush",
+  name:"Aayush",
   isActive:true,
-
 }
 const Products=[
   {
@@ -26,13 +25,12 @@ const Products=[
 function App(){
   return (
     <div>
-    <Navbar/>
-    <div>
-      {Products.map(({title , price} ,i)=>{
-        return <Product key={i} title={title} price={price}/>
-      })}
-    </div>
-
+      {/* yaha pe bhi user ka object pass kar skte hai user ={user} */}
+    <Navbar />
+    <Products1 Products={Products}>
+      <p>Porducts</p>
+      <a href="aayush-v-porfolio-netlifi">Go to this linke I have a suprise for u </a>
+    </Products1>
     <h1>This is Aayush here</h1>
     <Footer/>
     <Footer2/>

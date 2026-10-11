@@ -1,5 +1,5 @@
 
-function Navbar()
+function Navbar({user = { isActive :true , name:"Aayush"}})
 {
   return(
     <ul>
@@ -7,7 +7,8 @@ function Navbar()
       <li>about</li>
       <li>Shop</li>
       <li>search</li>
-      <li>Login</li>
+      {/* consditional renduring */}
+      <li>{user.isActive? user.name :" login"}</li> 
     </ul>
 
   );
