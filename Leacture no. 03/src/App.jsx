@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './App.css'
-import { Key } from '../componets/Key';
+import Product, { Key } from '../componets/Key';
 
 function Counter(){
    const [count , setCount]=useState(0);
@@ -17,12 +17,13 @@ function App() {
 const [changeTag , setChangeTag]= useState(false);
   return (
     <div>
+      {/* <Product/> */}
       <Key/>
-      <h1>High</h1>
-      <h2>low</h2>
-      <h3>
+      {/* <h1>High</h1>
+      <h2>low</h2> */}
+      {/* <h3>
         Hello
-      </h3>
+      </h3> */}
       {/* {changeTag? (
         <div>
       <p>Div Tag</p>
