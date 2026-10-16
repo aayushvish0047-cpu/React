@@ -25,7 +25,7 @@ export function Key() {
             {id:3 , name:"Moniter"}
         ]
     )
-};
+
  function removeFirstProduct(){
     setProducts((prev)=>prev.slice(1))
  }
