@@ -1,0 +1,12 @@
+.Conatiner{
+  height: 200px;
+  width: 200px;
+  border:1px solid black;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color:palegoldenrod;
+
+}
