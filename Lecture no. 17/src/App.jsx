@@ -12,7 +12,6 @@ function App() {
     timerRef.current=setInterval(()=>{
         setTime(time=>time+1);
       },1000)
-
   }
   function stopTimer(){
     clearInterval(timerRef.current);
