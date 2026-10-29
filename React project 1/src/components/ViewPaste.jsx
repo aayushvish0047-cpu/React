@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router";
 import { deletePaste } from "../redux/PasteSlice";
@@ -6,6 +7,8 @@ function ViewPaste() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [copyStatus, setCopyStatus] = useState("");
+  const [copyError, setCopyError] = useState("");
   const isHydrated = useSelector((state) => state.paste.isHydrated);
   const paste = useSelector((state) =>
     state.paste.items.find((item) => item.id === id),
@@ -41,6 +44,18 @@ function ViewPaste() {
     navigate("/paste");
   }
 
+  async function handleCopy() {
+    setCopyError("");
+
+    try {
+      await navigator.clipboard.writeText(paste.content);
+      setCopyStatus("Copied!");
+    } catch {
+      setCopyStatus("");
+      setCopyError("Could not copy. Check clipboard permissions and try again.");
+    }
+  }
+
   return (
     <main className="page-main">
       <Link className="back-link" to="/paste">
@@ -60,6 +75,9 @@ function ViewPaste() {
         </div>
         <pre className="paste-content">{paste.content}</pre>
         <footer className="detail-actions">
+          <button className="button button-secondary" type="button" onClick={handleCopy}>
+            {copyStatus || "Copy content"}
+          </button>
           <Link className="button button-primary" to={`/paste?edit=${encodeURIComponent(paste.id)}`}>
             Edit paste <span aria-hidden="true">↗</span>
           </Link>
@@ -67,6 +85,11 @@ function ViewPaste() {
             Delete paste
           </button>
         </footer>
+        {copyError && (
+          <p className="form-error" role="alert">
+            {copyError}
+          </p>
+        )}
       </article>
     </main>
   );

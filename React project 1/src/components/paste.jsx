@@ -9,6 +9,7 @@ function Paste() {
   const isHydrated = useSelector((state) => state.paste.isHydrated);
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
+  const [copyStatus, setCopyStatus] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const editId = searchParams.get("edit");
   const editingPaste = pastes.find((paste) => paste.id === editId);
@@ -24,6 +25,19 @@ function Paste() {
 
     if (id === editId) {
       setSearchParams({});
+    }
+  }
+
+  async function handleCopy(paste) {
+    try {
+      await navigator.clipboard.writeText(paste.content);
+      setCopyStatus({ id: paste.id, message: "Copied!", error: false });
+    } catch {
+      setCopyStatus({
+        id: paste.id,
+        message: "Could not copy. Check clipboard permissions and try again.",
+        error: true,
+      });
     }
   }
 
@@ -100,6 +114,15 @@ function Paste() {
                   UPDATED {new Date(paste.updatedAt).toLocaleDateString()}
                 </span>
                 <div className="paste-card-actions">
+                  <button
+                    className="small-action"
+                    type="button"
+                    onClick={() => handleCopy(paste)}
+                  >
+                    {copyStatus?.id === paste.id && !copyStatus.error
+                      ? copyStatus.message
+                      : "Copy"}
+                  </button>
                   <Link
                     className="small-action"
                     to={`/paste?edit=${encodeURIComponent(paste.id)}`}
@@ -115,6 +138,11 @@ function Paste() {
               </button>
                 </div>
               </div>
+              {copyStatus?.id === paste.id && copyStatus.error && (
+                <p className="form-error" role="alert">
+                  {copyStatus.message}
+                </p>
+              )}
             </li>
           ))}
         </ul>
